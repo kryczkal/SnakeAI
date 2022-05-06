@@ -13,7 +13,7 @@ def snek():
     x_size = 16
     y_size = 16
     screen_size = [y_size * tile_size, x_size * tile_size]
-    ascii_graphics = ["."]
+    ascii_graphics = [""]
     board = np.full((y_size, x_size), ascii_graphics[0])
     snake_pos = [random.randrange(0, x_size - 1), random.randrange(0, y_size - 1)]
     board[snake_pos[1], snake_pos[0]] = "s"
@@ -142,14 +142,14 @@ def snek():
     pg.init()
     screen = pg.display.set_mode((screen_size[1], screen_size[0]))
     pg.display.set_caption("snek")
-    background = pg.image.load('../Snake-AI/sprites/sand.png').convert()
+    background = pg.image.load('../Snake-AI/sprites/white.png').convert()
     background = pg.transform.scale(background, (tile_size, tile_size))
     snek = pg.image.load('../Snake-AI/sprites/snek.png').convert()
     snek = pg.transform.scale(snek, (tile_size, tile_size))
     body_sprite = pg.image.load('../Snake-AI/sprites/body.png').convert()
     body_sprite = pg.transform.scale(body_sprite, (tile_size, tile_size))
     fruit = generate_fruit(fruit)
-    fruit_sprite = pg.image.load('../Snake-AI/sprites/fruit.png').convert()
+    fruit_sprite = pg.image.load('../Snake-AI/sprites/fruit.png')
     fruit_sprite = pg.transform.scale(fruit_sprite, (tile_size, tile_size))
     #pg.mixer.music.load('../Snake-AI/sounds/music.mp3')
     #pg.mixer.music.set_volume(0.1)
@@ -192,8 +192,7 @@ def snek():
                 board[body[x + 1][1], body[x + 1][0]] = "b"
         for x in range(0, x_size):
             for y in range(0, y_size):
-                if board[y][x] == ".":
-                    screen.blit(background, (x * tile_size, y * tile_size))
+                screen.blit(background, (x * tile_size, y * tile_size))
                 if board[y][x] == "s":
                     screen.blit(snek, (x * tile_size, y * tile_size))
                 if board[y][x] == "b":
