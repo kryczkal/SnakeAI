@@ -6,6 +6,7 @@ import time
 import numpy as np
 import pygame as pg
 
+fps = 10
 real_tile_size = 16
 scale = 4
 tile_size = real_tile_size * scale
@@ -13,7 +14,6 @@ grid_size_x = 16
 grid_size_y = 16
 screen_size_x = grid_size_x * tile_size
 screen_size_y = grid_size_y * tile_size
-speed = 150
 screen = pg.display.set_mode((screen_size_x, screen_size_y))
 pg.display.set_caption("snake")
 background = pg.image.load('../Snake-AI/sprites/white.png').convert()
@@ -21,24 +21,26 @@ background = pg.transform.scale(background, (tile_size, tile_size))
 number_of_fruits = 1
 pg.init()
 
+
 def snek():
     keys = []
     running = True
+    clock = pg.time.Clock()
 
-    def get_input(running):
+    def get_input(run):
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
+                run = False
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_s:
-                    keys.append("s")
+                    keys.append('s')
                 if event.key == pg.K_w:
-                    keys.append("w")
+                    keys.append('w')
                 if event.key == pg.K_d:
                     keys.append('d')
                 if event.key == pg.K_a:
                     keys.append('a')
-        return running
+        return run
 
     def draw_score():
         font = pg.font.SysFont(None, 16 * scale)
@@ -160,11 +162,10 @@ def snek():
         fruits['fruit ' + str(x)].generate(snake.body)
 
     while running:
-        start_time = time.time()
         running = get_input(running)
         screen.fill((255, 255, 255))
         snake.update(keys)
-        if len(keys) > 1:
+        if len(keys) >= 1:
             keys.pop(0)
         snake.draw()
         for x in range(0, number_of_fruits):
@@ -173,10 +174,9 @@ def snek():
 
         draw_score()
         pg.display.update()
-        # if collision_body(body, snake_pos) == 1:
-        #     running = False
+        clock.tick(fps)
         if not snake.is_alive:
             running = False
-        pg.time.delay(int(speed - (time.time() - start_time)))
+
 
 snek()
