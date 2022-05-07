@@ -11,8 +11,8 @@ fps = 60
 real_tile_size = 16
 scale = 4
 tile_size = real_tile_size * scale
-grid_size_x = 16
-grid_size_y = 16
+grid_size_x = int(64/scale)
+grid_size_y = int(64/scale)
 screen_size_x = grid_size_x * tile_size
 screen_size_y = grid_size_y * tile_size
 screen = pg.display.set_mode((screen_size_x, screen_size_y))
@@ -44,7 +44,7 @@ def snek():
         return run
 
     def draw_score():
-        font = pg.font.SysFont(None, 16 * scale)
+        font = pg.font.SysFont(None, int(tile_size))
         img = font.render(str(len(snake.body)), True, 'BLACK')
         screen.blit(img, (20, 20))
 
