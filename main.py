@@ -3,10 +3,11 @@ import random
 import sys
 import time
 
-import numpy as np
+
+#import numpy as nps
 import pygame as pg
 
-fps = 10
+fps = 60
 real_tile_size = 16
 scale = 4
 tile_size = real_tile_size * scale
@@ -160,20 +161,22 @@ def snek():
     for x in range(0, number_of_fruits):
         fruits['fruit ' + str(x)] = Fruit()
         fruits['fruit ' + str(x)].generate(snake.body)
-
+    tick = int(fps/10)
     while running:
-        running = get_input(running)
-        screen.fill((255, 255, 255))
-        snake.update(keys)
-        if len(keys) >= 1:
-            keys.pop(0)
-        snake.draw()
-        for x in range(0, number_of_fruits):
-            fruits['fruit ' + str(x)].location = snake.collision_fruit(fruits['fruit ' + str(x)])
-            fruits['fruit ' + str(x)].draw()
-
-        draw_score()
-        pg.display.update()
+        if tick == int(fps/10):
+            screen.fill((255, 255, 255))
+            running = get_input(running)
+            snake.update(keys)
+            if len(keys) >= 1:
+                keys.pop(0)
+            snake.draw()
+            for x in range(0, number_of_fruits):
+                fruits['fruit ' + str(x)].location = snake.collision_fruit(fruits['fruit ' + str(x)])
+                fruits['fruit ' + str(x)].draw()
+            tick = 0
+            draw_score()
+            pg.display.update()
+        tick = tick + 1
         clock.tick(fps)
         if not snake.is_alive:
             running = False
