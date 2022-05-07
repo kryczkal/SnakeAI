@@ -6,23 +6,24 @@ import time
 import numpy as np
 import pygame as pg
 
+real_tile_size = 16
+scale = 4
+tile_size = real_tile_size * scale
+grid_size_x = 16
+grid_size_y = 16
+screen_size_x = grid_size_x * tile_size
+screen_size_y = grid_size_y * tile_size
+speed = 150
+screen = pg.display.set_mode((screen_size_x, screen_size_y))
+pg.display.set_caption("snake")
+background = pg.image.load('../Snake-AI/sprites/white.png').convert()
+background = pg.transform.scale(background, (tile_size, tile_size))
+number_of_fruits = 1
+pg.init()
 
 def snek():
-    real_tile_size = 16
-    scale = 4
-    tile_size = real_tile_size * scale
-    x_size = 16
-    y_size = 16
-    screen_size = [y_size * tile_size, x_size * tile_size]
-    speed = 150
-    screen = pg.display.set_mode((screen_size[1], screen_size[0]))
-    pg.display.set_caption("snek")
-    background = pg.image.load('../Snake-AI/sprites/white.png').convert()
-    background = pg.transform.scale(background, (tile_size, tile_size))
-    number_of_fruits = 1
     keys = []
     running = True
-    pg.init()
 
     def get_input(running):
         for event in pg.event.get():
@@ -53,7 +54,7 @@ def snek():
             self.sound.set_volume(0.3)
 
         def generate(self, snake_body):
-            self.location = [random.randrange(0, x_size), random.randrange(0, y_size)]
+            self.location = [random.randrange(0, grid_size_x), random.randrange(0, grid_size_y)]
             for body_part in snake_body:
                 if body_part == self.location:
                     self.location = self.generate(snake_body)
@@ -64,8 +65,8 @@ def snek():
 
     class Snake:
         def __init__(self):
-            self.pos_x = random.randrange(0, x_size - 1)
-            self.pos_y = random.randrange(0, y_size - 1)
+            self.pos_x = random.randrange(0, grid_size_x - 1)
+            self.pos_y = random.randrange(0, grid_size_y - 1)
             self.body = [[-1, -1]]
             self.head_sprite = pg.image.load('../Snake-AI/sprites/snek.png').convert()
             self.head_sprite = pg.transform.scale(self.head_sprite, (tile_size, tile_size))
@@ -86,15 +87,15 @@ def snek():
                 self.pos_y = self.pos_y + 1
 
         def pos_correction(self):
-            if self.pos_y > y_size - 1:
+            if self.pos_y > grid_size_y - 1:
                 self.pos_y = 0
             if self.pos_y < 0:
-                self.pos_y = y_size - 1
+                self.pos_y = grid_size_y - 1
 
-            if self.pos_x > x_size - 1:
+            if self.pos_x > grid_size_x - 1:
                 self.pos_x = 0
             if self.pos_x < 0:
-                self.pos_x = x_size - 1
+                self.pos_x = grid_size_x - 1
 
         def collision_body(self):
             if len(self.body) > 0:
@@ -160,8 +161,8 @@ def snek():
 
     while running:
         start_time = time.time()
-        screen.fill((255, 255, 255))
         running = get_input(running)
+        screen.fill((255, 255, 255))
         snake.update(keys)
         if len(keys) > 1:
             keys.pop(0)
@@ -177,6 +178,5 @@ def snek():
         if not snake.is_alive:
             running = False
         pg.time.delay(int(speed - (time.time() - start_time)))
-
 
 snek()
