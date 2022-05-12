@@ -7,7 +7,15 @@ import numpy as np
 import pygame as pg
 
 graphic_on = True
-fps = 60
+fps_on = False
+
+
+def Framerate_on():
+    global fps_on
+    fps_on = True
+
+
+fps = 15
 real_tile_size = 16
 scale = 4
 tile_size = real_tile_size * scale
@@ -55,24 +63,24 @@ def state_of_game():
     d_up, d_down, d_left, d_right = snake.danger_detection()
     m_up, m_down, m_left, m_right = snake.direction_detection()
     f_up, f_down, f_left, f_right = snake.fruits_detection()
-    #print(snake.direction_detection())
-    #print(m_up,m_down,m_left,m_right)
+    # print(snake.direction_detection())
+    # print(m_up,m_down,m_left,m_right)
     if m_up == 1:
         state = [d_up, d_right, d_left,
-                m_up, m_down, m_left, m_right,
-                f_up, f_down, f_left, f_right]
+                 m_up, m_down, m_left, m_right,
+                 f_up, f_down, f_left, f_right]
     if m_down == 1:
         state = [d_down, d_left, d_right,
-                m_up, m_down, m_left, m_right,
-                f_up, f_down, f_left, f_right]
+                 m_up, m_down, m_left, m_right,
+                 f_up, f_down, f_left, f_right]
     if m_left == 1:
         state = [d_left, d_up, d_down,
-                m_up, m_down, m_left, m_right,
-                f_up, f_down, f_left, f_right]
+                 m_up, m_down, m_left, m_right,
+                 f_up, f_down, f_left, f_right]
     if m_right == 1:
         state = [d_right, d_down, d_up,
-                m_up, m_down, m_left, m_right,
-                f_up, f_down, f_left, f_right]
+                 m_up, m_down, m_left, m_right,
+                 f_up, f_down, f_left, f_right]
     return state
 
 
@@ -120,9 +128,9 @@ class Snake:
         if self.direction == 2:
             right = 1
         if self.direction == 3:
-            down = 1
-        if self.direction == 4:
             up = 1
+        if self.direction == 4:
+            down = 1
         return up, down, left, right
 
     def movement(self):
@@ -155,14 +163,14 @@ class Snake:
             if abs(self.pos_x - self.body[body_part][0]) <= 1 and abs(self.pos_y - self.body[body_part][1]) <= 1:
                 if self.pos_x - self.body[body_part][0] == 0:
                     if self.body[body_part][1] > self.pos_y:
-                        up = 1
+                        down = 1
                     else:
-                        down = 0
+                        up = 1
                 if self.pos_y - self.body[body_part][1] == 0:
                     if self.body[body_part][0] > self.pos_x:
-                        right = 0
+                        right = 1
                     else:
-                        left = 0
+                        left = 1
         return up, down, left, right
 
     def fruits_detection(self):
@@ -276,20 +284,22 @@ def Score():
     global score
     return score
 
+
 def Reward():
     global reward
     return reward
 
+
 def key_pressed(move):
     global snake
-    #print(move)
+    # print(move)
     if snake.direction == 1:
         if move[0] == 1:
             return 'a'
         if move[1] == 1:
             return 'w'
         if move[2] == 1:
-            return's'
+            return 's'
     if snake.direction == 2:
         if move[0] == 1:
             return 'd'
@@ -312,7 +322,10 @@ def key_pressed(move):
         if move[2] == 1:
             return 'a'
 
+
 reward = 0
+
+
 def next_frame(final_move):
     global tick
     global snake
@@ -333,7 +346,7 @@ def next_frame(final_move):
         if graphic_on:
             snake.draw()
         dangers = state_of_game()
-        print('up: ', dangers[0],'Right:', dangers[1], "left", dangers[2])
+        print('up: ', dangers[0], 'Right:', dangers[1], "left", dangers[2])
 
         for x in range(0, number_of_fruits):
             fruits['fruit ' + str(x)].location = snake.collision_fruit(fruits['fruit ' + str(x)])
@@ -344,9 +357,9 @@ def next_frame(final_move):
         if graphic_on:
             draw_score()
             pg.display.update()
-        clock.tick(fps)
+        if fps_on:
+            clock.tick(fps)
         if not snake.is_alive:
             running = True
             reward -= 10
-        pg.time.wait(400)
     return running

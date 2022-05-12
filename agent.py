@@ -6,7 +6,7 @@ from game import restart
 from game import Score
 import time
 from collections import deque
-from game import state_of_game, Reward
+from game import state_of_game, Reward, Framerate_on
 from model import Linear_QNet, Qtrainer
 from helper import plot
 
@@ -46,6 +46,8 @@ class Agent:
     def get_action(self, state):
         self.epsilon = 80 - self.n_games
         final_move = [0, 0, 0]
+        if self.n_games > 98:
+            Framerate_on()
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
             final_move[move] = 1
