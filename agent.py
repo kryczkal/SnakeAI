@@ -46,7 +46,7 @@ class Agent:
     def get_action(self, state):
         self.epsilon = 80 - self.n_games
         final_move = [0, 0, 0]
-        if self.n_games > 98:
+        if self.n_games > 240:
             Framerate_on()
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
@@ -67,7 +67,7 @@ def train():
     agent = Agent()
     score = Score()
     restart()
-    while agent.n_games < 100:
+    while agent.n_games < 250:
         state_old = agent.get_state()
         final_move = agent.get_action(state_old)
         #print(final_move)

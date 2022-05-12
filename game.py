@@ -161,20 +161,19 @@ class Snake:
         down = 0
         left = 0
         right = 0
-        point_right = ((self.pos_x - 1)%grid_size_x, self.pos_y)
-        point_left = ((self.pos_x - 1)%grid_size_x, self.pos_y)
-        point_up = (self.pos_x, (self.pos_y - 1)%grid_size_y)
-        point_down = (self.pos_y, (self.pos_y + 1)%grid_size_y)
+        point_right = [(self.pos_x + 1) % grid_size_x, self.pos_y]
+        point_left = [(self.pos_x - 1) % grid_size_x, self.pos_y]
+        point_up = [self.pos_x, (self.pos_y - 1) % grid_size_y]
+        point_down = [self.pos_x, (self.pos_y + 1) % grid_size_y]
         for body_part in range(1, len(self.body)):
-            if body_part == point_right:
+            if self.body[body_part] == point_right:
                 right = 1
-            if body_part == point_left:
+            if self.body[body_part] == point_left:
                 left = 1
-            if body_part == point_down:
+            if self.body[body_part] == point_down:
                 down = 1
-            if body_part == point_up:
+            if self.body[body_part] == point_up:
                 up = 1
-
         return up, down, left, right
 
     def fruits_detection(self):
@@ -363,5 +362,5 @@ def next_frame(final_move):
             clock.tick(fps)
         if not snake.is_alive:
             running = True
-            reward -= 10
+            reward -= 50
     return running
