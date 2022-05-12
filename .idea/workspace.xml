@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25b8d8d2-af7b-4a3b-9c46-f0c6f46df275" name="Changes" comment="Fixed errors with direction detection">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_36__Changes_.xml" afterDir="false" />
+    <list default="true" id="25b8d8d2-af7b-4a3b-9c46-f0c6f46df275" name="Changes" comment="For fuck sakes it works">
+      <change afterPath="$PROJECT_DIR$/model/model.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +187,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652346440786</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="For fuck sakes it works">
+      <created>1652348319166</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1652348319166</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -235,6 +243,7 @@
     <MESSAGE value="Fixed input lag, added an option to control fps" />
     <MESSAGE value="Everything is fucked, but a lotta code is here" />
     <MESSAGE value="Fixed errors with direction detection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed errors with direction detection" />
+    <MESSAGE value="For fuck sakes it works" />
+    <option name="LAST_COMMIT_MESSAGE" value="For fuck sakes it works" />
   </component>
 </project>

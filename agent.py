@@ -8,14 +8,15 @@ import time
 from collections import deque
 from game import state_of_game, Reward, Framerate_on
 from model import Linear_QNet, Qtrainer
-from helper import plot
+from helper import plot, plot_complete
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
 LR = 0.001
+TRAINING_INSTANCES = 100
 
 
-class Agent:
+class Agent():
     def __init__(self):
         self.n_games = 0
         self.epsilon = 0  # randomness
@@ -43,11 +44,14 @@ class Agent:
     def train_short_memory(self, state, action, reward, next_state, game_over):
         self.trainer.train_step(state, action, reward, next_state, game_over)
 
-    def get_action(self, state):
-        self.epsilon = 80 - self.n_games
+    def get_action(self, state, training):
+        if training:
+            self.epsilon = 80 - self.n_games
+        else:
+            self.epsilon = -1
         final_move = [0, 0, 0]
-        if self.n_games > 240:
-            Framerate_on()
+        #if self.n_games > 240:
+        #    Framerate_on()
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
             final_move[move] = 1
@@ -67,9 +71,9 @@ def train():
     agent = Agent()
     score = Score()
     restart()
-    while agent.n_games < 250:
+    while agent.n_games < TRAINING_INSTANCES:
         state_old = agent.get_state()
-        final_move = agent.get_action(state_old)
+        final_move = agent.get_action(state_old, True)
         #print(final_move)
         score = Score()
 
@@ -97,10 +101,25 @@ def train():
             mean_score = total_score / agent.n_games
             plot_mean_score.append(mean_score)
             plot(plot_score,plot_mean_score)
+            if agent.n_games == TRAINING_INSTANCES:
+                plot_complete(plot_score, plot_mean_score)
 
+def play():
+    restart()
+    agent = Agent()
+    Framerate_on()
+    agent.model.load()
+    while True:
+        state_old = agent.get_state()
+        final_move = agent.get_action(state_old, False)
+        game_over = next_frame(final_move)
+        if game_over:
+            restart()
+            Framerate_on()
 
 if __name__ == '__main__':
-    train()
+    #train()
+    play()
 
 
 def draw_key():
