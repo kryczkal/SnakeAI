@@ -6,7 +6,7 @@ from game import restart
 from game import Score
 import time
 from collections import deque
-from game import state_of_game
+from game import state_of_game, Reward
 from model import Linear_QNet, Qtrainer
 from helper import plot
 
@@ -26,7 +26,7 @@ class Agent:
 
     def get_state(self):
         state = state_of_game()
-        print(state)
+        #print(state)
         return np.array(state, dtype=int)
 
     def remember(self, state, action, reward, next_state, game_over):
@@ -65,17 +65,14 @@ def train():
     agent = Agent()
     score = Score()
     restart()
-    for x in range(0, 10):
+    while agent.n_games < 100:
         state_old = agent.get_state()
         final_move = agent.get_action(state_old)
-
+        #print(final_move)
         score = Score()
 
-        game_over = next_frame([final_move])
-        reward = 0
-
-        if Score() > score:
-            reward = 10
+        game_over = next_frame(final_move)
+        reward = Reward()
         state_new = agent.get_state()
 
         agent.train_short_memory(state_old, final_move, reward, state_new, game_over)
@@ -97,7 +94,7 @@ def train():
             total_score += score
             mean_score = total_score / agent.n_games
             plot_mean_score.append(mean_score)
-            # plot(plot_score,plot_mean_score)
+            plot(plot_score,plot_mean_score)
 
 
 if __name__ == '__main__':

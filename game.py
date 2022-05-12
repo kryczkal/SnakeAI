@@ -191,8 +191,10 @@ class Snake:
                     self.is_alive = False
 
     def collision_fruit(self, Fruit):
+        global reward
         if [self.pos_x, self.pos_y] == Fruit.location:
             self.body.append([-1, -1])
+            reward += 10
             if graphic_on:
                 Fruit.sound.play()
             Fruit.location = Fruit.generate(self.body)
@@ -274,58 +276,65 @@ def Score():
     global score
     return score
 
+def Reward():
+    global reward
+    return reward
 
 def key_pressed(move):
     global snake
-    global keys
+    #print(move)
     if snake.direction == 1:
-        if move == 0:
-            keys.append('a')
-        if move == 1:
-            keys.append('w')
-        if move == 2:
-            keys.append('s')
+        if move[0] == 1:
+            return 'a'
+        if move[1] == 1:
+            return 'w'
+        if move[2] == 1:
+            return's'
     if snake.direction == 2:
-        if move == 0:
-            keys.append('d')
-        if move == 1:
-            keys.append('s')
-        if move == 2:
-            keys.append('w')
+        if move[0] == 1:
+            return 'd'
+        if move[1] == 1:
+            return 's'
+        if move[2] == 1:
+            return 'w'
     if snake.direction == 3:
-        if move == 0:
-            keys.append('s')
-        if move == 1:
-            keys.append('a')
-        if move == 2:
-            keys.append('d')
+        if move[0] == 1:
+            return 's'
+        if move[1] == 1:
+            return 'a'
+        if move[2] == 1:
+            return 'd'
     if snake.direction == 4:
-        if move == 0:
-            keys.append('w')
-        if move == 1:
-            keys.append('d')
-        if move == 2:
-            keys.append('a')
+        if move[0] == 1:
+            return 'w'
+        if move[1] == 1:
+            return 'd'
+        if move[2] == 1:
+            return 'a'
 
-
+reward = 0
 def next_frame(final_move):
     global tick
     global snake
     global running
     global score
     global keys
-    key_pressed(final_move)
     # print(keys)
+    global reward
+    reward = 0
     if not running:
         if graphic_on:
             screen.fill((255, 255, 255))
         # running = get_input(running)
-        snake.update(keys)
+        snake.update(key_pressed(final_move))
         # print(keys)
         # if len(keys) >= 1:
         #    keys.pop(0)
         if graphic_on:
             snake.draw()
+        dangers = state_of_game()
+        print('up: ', dangers[0],'Right:', dangers[1], "left", dangers[2])
+
         for x in range(0, number_of_fruits):
             fruits['fruit ' + str(x)].location = snake.collision_fruit(fruits['fruit ' + str(x)])
             if graphic_on:
@@ -338,4 +347,6 @@ def next_frame(final_move):
         clock.tick(fps)
         if not snake.is_alive:
             running = True
+            reward -= 10
+        pg.time.wait(400)
     return running
