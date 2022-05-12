@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25b8d8d2-af7b-4a3b-9c46-f0c6f46df275" name="Changes" comment="Everything is fucked, but a lotta code is here">
+    <list default="true" id="25b8d8d2-af7b-4a3b-9c46-f0c6f46df275" name="Changes" comment="Fixed errors with direction detection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652306339736</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixed errors with direction detection">
+      <created>1652346440786</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1652346440786</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -228,6 +232,7 @@
     <MESSAGE value="Renamed variable names to be more consistent" />
     <MESSAGE value="Fixed input lag, added an option to control fps" />
     <MESSAGE value="Everything is fucked, but a lotta code is here" />
-    <option name="LAST_COMMIT_MESSAGE" value="Everything is fucked, but a lotta code is here" />
+    <MESSAGE value="Fixed errors with direction detection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed errors with direction detection" />
   </component>
 </project>

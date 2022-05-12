@@ -155,22 +155,26 @@ class Snake:
             self.pos_x = grid_size_x - 1
 
     def danger_detection(self):
+        global grid_size_y
+        global grid_size_x
         up = 0
         down = 0
         left = 0
         right = 0
+        point_right = ((self.pos_x - 1)%grid_size_x, self.pos_y)
+        point_left = ((self.pos_x - 1)%grid_size_x, self.pos_y)
+        point_up = (self.pos_x, (self.pos_y - 1)%grid_size_y)
+        point_down = (self.pos_y, (self.pos_y + 1)%grid_size_y)
         for body_part in range(1, len(self.body)):
-            if abs(self.pos_x - self.body[body_part][0]) <= 1 and abs(self.pos_y - self.body[body_part][1]) <= 1:
-                if self.pos_x - self.body[body_part][0] == 0:
-                    if self.body[body_part][1] > self.pos_y:
-                        down = 1
-                    else:
-                        up = 1
-                if self.pos_y - self.body[body_part][1] == 0:
-                    if self.body[body_part][0] > self.pos_x:
-                        right = 1
-                    else:
-                        left = 1
+            if body_part == point_right:
+                right = 1
+            if body_part == point_left:
+                left = 1
+            if body_part == point_down:
+                down = 1
+            if body_part == point_up:
+                up = 1
+
         return up, down, left, right
 
     def fruits_detection(self):
@@ -345,8 +349,6 @@ def next_frame(final_move):
         #    keys.pop(0)
         if graphic_on:
             snake.draw()
-        dangers = state_of_game()
-        print('up: ', dangers[0], 'Right:', dangers[1], "left", dangers[2])
 
         for x in range(0, number_of_fruits):
             fruits['fruit ' + str(x)].location = snake.collision_fruit(fruits['fruit ' + str(x)])
