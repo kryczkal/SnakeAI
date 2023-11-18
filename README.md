@@ -2,6 +2,23 @@
 
 ![Snake AI Demo](assets/snake-demo.gif)
 
+# Table of Contents
+1. [Introduction](#introduction)
+2. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Installation](#installation)
+3. [Main Application](#main-application)
+4. [Code Structure](#code-structure)
+5. [Algorithm Explanation](#algorithm-explanation)
+   - [Background: Q-Learning](#background-q-learning)
+   - [Challenges with Classic Q-Learning](#challenges-with-classic-q-learning)
+   - [Introduction of Neural Networks](#introduction-of-neural-networks)
+   - [DQN in the Snake Game](#dqn-in-the-snake-game)
+   - [Benefits of DQN](#benefits-of-dqn)
+   - [Limitations](#limitations)
+6. [Authors](#authors)
+7. [License](#license)
+
 ## Introduction
 
 This project utilizes the power of deep learning to train an intelligent agent to play the classic Snake game. Using Python and advanced algorithms, the agent learns and adapts its strategy to optimize game performance. The project employs a deep Q-network (DQN) to empower the agent to make decisions based on environmental cues and past experiences.
