@@ -1,7 +1,7 @@
 import pygame as pg
 
-from Fruit import Fruit
-from Snake import Snake
+from src.Fruit import Fruit
+from src.Snake import Snake
 from settings import Settings
 
 
@@ -15,7 +15,7 @@ class Game:
         if self.graphic_on:
             self.screen = pg.display.set_mode((Settings.screen_size_x, Settings.screen_size_y))
             pg.display.set_caption("snake")
-            self.background = pg.image.load('../assets/sprites/sand.png').convert()
+            self.background = pg.image.load('assets/sprites/sand.png').convert()
             self.background = pg.transform.scale(self.background, (Settings.tile_size, Settings.tile_size))
             pg.init()
         # Variables changed as game progresses

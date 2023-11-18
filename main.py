@@ -3,8 +3,6 @@ from src.Game import Game
 from src.Plotter import Plotter
 
 TRAINING_INSTANCES = 100
-
-
 def train(game):
     agent = Agent(game)
     plotter = Plotter()

@@ -12,9 +12,9 @@ class Snake:
         self.pos_y = random.randrange(0, Settings.grid_size_y - 1)
         self.body = [[-1, -1]]
         if graphic_on:
-            self.head_sprite = pg.image.load('../assets/sprites/snek.png').convert()
+            self.head_sprite = pg.image.load('assets/sprites/snek.png').convert()
             self.head_sprite = pg.transform.scale(self.head_sprite, (Settings.tile_size, Settings.tile_size))
-            self.body_sprite = pg.image.load('../assets/sprites/body.png').convert()
+            self.body_sprite = pg.image.load('assets/sprites/body.png').convert()
             self.body_sprite = pg.transform.scale(self.body_sprite, (Settings.tile_size, Settings.tile_size))
         self.rotation = 0
         self.direction = random.randint(1, 4)

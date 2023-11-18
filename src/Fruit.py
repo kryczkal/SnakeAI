@@ -9,9 +9,9 @@ class Fruit:
     def __init__(self, graphic_on):
         self.location = [-1, -1]
         if graphic_on:
-            self.sprite = pg.image.load('../assets/sprites/fruit.png')
+            self.sprite = pg.image.load('assets/sprites/fruit.png')
             self.sprite = pg.transform.scale(self.sprite, (Settings.tile_size, Settings.tile_size))
-            self.sound = pg.mixer.Sound('../assets/sounds/fruit.mp3')
+            self.sound = pg.mixer.Sound('assets/sounds/fruit.mp3')
             self.sound.set_volume(0.3)
 
     def generate(self, snake_body):
