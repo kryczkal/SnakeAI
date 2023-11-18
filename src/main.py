@@ -1,34 +1,28 @@
-import random
-
-from Old.game import next_frame
-from Old.game import restart
-from Old.game import Score
-from Old.game import Reward, Framerate_on
 from src.Agent import Agent
-from src.Plotter import plot, plot_complete
+from src.Game import Game
+from src.Plotter import Plotter
 
-MAX_MEMORY = 100_000
-BATCH_SIZE = 1000
-LR = 0.001
 TRAINING_INSTANCES = 100
 
 
-def train():
+def train(game):
+    agent = Agent(game)
+    plotter = Plotter()
+    game.restart()
+
     plot_score = []
     plot_mean_score = []
+
     total_score = 0
     record = 0
-    agent = Agent()
-    score = Score()
-    restart()
+
     while agent.n_games < TRAINING_INSTANCES:
         state_old = agent.get_state()
         final_move = agent.get_action(state_old, True)
-        #print(final_move)
-        score = Score()
+        score = game.score
 
-        game_over = next_frame(final_move)
-        reward = Reward()
+        game_over = game.next_frame(final_move)
+        reward = game.reward
         state_new = agent.get_state()
 
         agent.train_short_memory(state_old, final_move, reward, state_new, game_over)
@@ -36,8 +30,8 @@ def train():
 
         if game_over:
             # train long memory, plot result
-            score = Score()
-            restart()
+            score = game.score
+            game.restart()
             agent.n_games += 1
             agent.train_long_memory()
 
@@ -50,34 +44,26 @@ def train():
             total_score += score
             mean_score = total_score / agent.n_games
             plot_mean_score.append(mean_score)
-            plot(plot_score,plot_mean_score)
+            plotter.plot(plot_score, plot_mean_score)
             if agent.n_games == TRAINING_INSTANCES:
-                plot_complete(plot_score, plot_mean_score)
+                plotter.plot_complete(plot_score, plot_mean_score)
 
-def play():
-    restart()
-    agent = Agent()
-    Framerate_on()
+
+def play(game: Game):
+    game.restart()
+    # game.Framerate_on()
+    agent = Agent(game)
     agent.model.load()
     while True:
         state_old = agent.get_state()
         final_move = agent.get_action(state_old, False)
-        game_over = next_frame(final_move)
+        game_over = game.next_frame(final_move)
         if game_over:
-            restart()
-            Framerate_on()
+            game.restart()
+            game.cap_framerate()
+
 
 if __name__ == '__main__':
-    play()
-
-
-def draw_key():
-    x = random.randrange(0, 3)
-    if x == 0:
-        return 'a'
-    if x == 1:
-        return 'd'
-    if x == 2:
-        return 'w'
-    if x == 3:
-        return 's'
+    game = Game()
+    train(game)
+    play(game)
